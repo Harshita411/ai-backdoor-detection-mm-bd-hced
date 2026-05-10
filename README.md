@@ -186,3 +186,9 @@ This demonstrates:
 This project combines reproduction of an established backdoor detection method with a **newly proposed output-based detection approach (HCED)**. By incorporating both internal statistical analysis and external behavioral signals, it demonstrates a broader framework for analyzing model integrity in deep learning systems.
 
 HCED represents a standalone, extensible contribution that can be applied across architectures without requiring access to internal model components.
+
+---
+
+## 12. Additional
+
+The repository also contains presentation slides for explaination and demonstrating results (pdf format)
