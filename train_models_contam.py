@@ -4,6 +4,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import torch
+torch.set_num_threads(2)
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
@@ -56,10 +57,10 @@ testset = torchvision.datasets.CIFAR10(root='./data', train=False, download=True
 if not os.path.isdir(attack_dir):
     print ('Attack images not found, please craft attack images first!')
     sys.exit(0)
-train_attacks = torch.load('./' + attack_dir + '/train_attacks')
+train_attacks = torch.load('./' + attack_dir + '/train_attacks', weights_only=False)
 train_images_attacks = train_attacks['image']
 train_labels_attacks = train_attacks['label']
-test_attacks = torch.load('./' + attack_dir + '/test_attacks')
+test_attacks = torch.load('./' + attack_dir + '/test_attacks', weights_only=False)
 test_images_attacks = test_attacks['image']
 test_labels_attacks = test_attacks['label']
 '''
@@ -74,14 +75,14 @@ image_dtype = trainset.data.dtype
 train_images_attacks = np.rint(np.transpose(train_images_attacks.numpy()*255, [0, 2, 3, 1])).astype(image_dtype)
 trainset.data = np.concatenate((trainset.data, train_images_attacks))
 trainset.targets = np.concatenate((trainset.targets, train_labels_attacks))
-ind_train = torch.load('./' + attack_dir + '/ind_train')
+ind_train = torch.load('./' + attack_dir + '/ind_train', weights_only=False)
 trainset.data = np.delete(trainset.data, ind_train, axis=0)
 trainset.targets = np.delete(trainset.targets, ind_train, axis=0)
 
 # Load in the datasets
-trainloader = torch.utils.data.DataLoader(trainset, batch_size=32, shuffle=True, num_workers=2)
-testloader = torch.utils.data.DataLoader(testset, batch_size=100, shuffle=False, num_workers=2)
-attackloader = torch.utils.data.DataLoader(testset_attacks, batch_size=100, shuffle=False, num_workers=2)
+trainloader = torch.utils.data.DataLoader(trainset, batch_size=32, shuffle=True, num_workers=0)
+testloader = torch.utils.data.DataLoader(testset, batch_size=32, shuffle=False, num_workers=0)
+attackloader = torch.utils.data.DataLoader(testset_attacks, batch_size=32, shuffle=False, num_workers=0)
 classes = ('plane', 'car', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck')
 
 # Model
@@ -180,7 +181,7 @@ def test_attack(epoch):
     print('Attack success rate: %.3f' % acc)
 
 
-for epoch in range(start_epoch, start_epoch+50):
+for epoch in range(start_epoch, start_epoch+10):
     model= train(epoch)
     test(epoch)
     test_attack(epoch)

@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+mmbd_env/
+venv/
+.env/
+
+# ML data and models (very important)
+data/
+clean0/
+model0/
+attack0/
+Results/
+
+# Outputs
+*.png
+*.npy
+*.log
+
+# System
+.DS_Store
+Thumbs.db
+
+clean1/
+*.pth
