@@ -19,7 +19,7 @@ HCED is entirely **novel to this project** and provides an additional perspectiv
 - Reproduce the MM-BD detection pipeline
 - Validate implementation consistency with the original paper
 
-### Novel Contribution (Primary Focus)
+### Novel Contribution
 
 - Design and implement HCED (proposed in this project)
 - Analyze prediction-level behavior of models
