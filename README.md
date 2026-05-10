@@ -84,6 +84,7 @@ HCED(p) = Δ(p) × (1 - H(p) / log(K))
 
 ## 5. Project Structure
 
+```text
 MM-BD/
 │
 ├── clean0/ # Clean trained models
@@ -99,6 +100,7 @@ MM-BD/
 │
 ├── data/ # CIFAR-10 dataset
 └── README.md
+```
 
 ---
 
@@ -178,12 +180,6 @@ This demonstrates:
 
 - Distinct confidence patterns across models
 - Variation in entropy distributions
-
----
-
----
-
----
 
 ## 11. Conclusion
 
